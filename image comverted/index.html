@@ -1,93 +1,111 @@
-<div class="container">
-    <header>
-        <div class="logo">
-            <!-- Custom Original SVG Logo -->
-            <div class="icon">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="4" y="4" width="40" height="40" rx="10" fill="#2563EB" opacity="0.1"/>
-                    <rect x="8" y="12" width="32" height="24" rx="4" fill="#2563EB"/>
-                    <path d="M12 28L20 18L26 25L32 16V28H12Z" fill="white" opacity="0.9"/>
-                    <circle cx="16" cy="18" r="2.5" fill="white"/>
-                    <path d="M8 8H14" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M8 8V14" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M40 40H34" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M40 40V34" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
-                </svg>
-            </div>
-            <div>
-                <h1>Image Converter</h1>
-                <p>Professional Image Optimization & Formatting</p>
-            </div>
-        </div>
-    </header>
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="grid">
-        <!-- Left Panel: Controls -->
-        <div class="controls-panel">
-            <div id="controls" class="card disabled">
-                <div class="control-group">
-                    <label>1. Output Dimensions</label>
-                    <div class="resize-row">
-                        <input type="number" id="widthInput" placeholder="Width">
-                        <span>×</span>
-                        <input type="number" id="heightInput" placeholder="Height">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMG.PROCESS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <!-- Custom Original SVG Logo -->
+                <div class="icon">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="4" width="40" height="40" rx="10" fill="#2563EB" opacity="0.1" />
+                        <rect x="8" y="12" width="32" height="24" rx="4" fill="#2563EB" />
+                        <path d="M12 28L20 18L26 25L32 16V28H12Z" fill="white" opacity="0.9" />
+                        <circle cx="16" cy="18" r="2.5" fill="white" />
+                        <path d="M8 8H14" stroke="#2563EB" stroke-width="3" stroke-linecap="round" />
+                        <path d="M8 8V14" stroke="#2563EB" stroke-width="3" stroke-linecap="round" />
+                        <path d="M40 40H34" stroke="#2563EB" stroke-width="3" stroke-linecap="round" />
+                        <path d="M40 40V34" stroke="#2563EB" stroke-width="3" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div>
+                    <h1>Image Converter</h1>
+                    <p>Professional Image Optimization & Formatting</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid">
+            <!-- Left Panel: Controls -->
+            <div class="controls-panel">
+                <div id="controls" class="card disabled">
+                    <div class="control-group">
+                        <label>1. Output Dimensions</label>
+                        <div class="resize-row">
+                            <input type="number" id="widthInput" placeholder="Width">
+                            <span>×</span>
+                            <input type="number" id="heightInput" placeholder="Height">
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="lockRatio" checked>
+                            <label for="lockRatio">Maintain Aspect Ratio</label>
+                        </div>
                     </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="lockRatio" checked>
-                        <label for="lockRatio">Maintain Aspect Ratio</label>
+
+                    <div class="control-group">
+                        <label>2. Image Quality</label>
+                        <input type="range" id="quality" min="0.1" max="1.0" step="0.1" value="0.8">
+                        <div class="range-labels">
+                            <span>Max Compression</span>
+                            <span>Max Quality</span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="control-group">
-                    <label>2. Image Quality</label>
-                    <input type="range" id="quality" min="0.1" max="1.0" step="0.1" value="0.8">
-                    <div class="range-labels">
-                        <span>Max Compression</span>
-                        <span>Max Quality</span>
+                    <div class="control-group">
+                        <label>3. Output Format</label>
+                        <select id="format">
+                            <option value="image/jpeg">JPEG Document (.jpg)</option>
+                            <option value="image/png">Portable Network Graphic (.png)</option>
+                            <option value="image/webp">Web Picture Format (.webp)</option>
+                        </select>
                     </div>
-                </div>
 
-                <div class="control-group">
-                    <label>3. Output Format</label>
-                    <select id="format">
-                        <option value="image/jpeg">JPEG Document (.jpg)</option>
-                        <option value="image/png">Portable Network Graphic (.png)</option>
-                        <option value="image/webp">Web Picture Format (.webp)</option>
-                    </select>
+                    <button id="downloadBtn" class="btn-primary">Download Image</button>
                 </div>
-
-                <button id="downloadBtn" class="btn-primary">Download Image</button>
             </div>
-        </div>
 
-        <!-- Right Panel: Canvas Preview / Drop Zone -->
-        <div class="preview-panel card">
-            <div class="canvas-container" id="dropZone">
-                
-                <!-- Remove Image Button -->
-                <button id="removeBtn" class="btn-remove hidden" title="Clear Canvas">✕</button>
+            <!-- Right Panel: Canvas Preview / Drop Zone -->
+            <div class="preview-panel card">
+                <div class="canvas-container" id="dropZone">
 
-                <!-- Initial Placeholder / Upload Area -->
-                <div id="placeholderText" class="drop-content">
-                    <span class="upload-icon">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="17 8 12 3 7 8"></polyline>
-                            <line x1="12" y1="3" x2="12" y2="15"></line>
-                        </svg>
-                    </span>
-                    <h2>Drag and drop an image here</h2>
-                    <p>or <span class="browse-link">click to browse files</span></p>
-                    <input type="file" id="upload" accept="image/png, image/jpeg, image/webp, image/svg+xml" class="hidden-file-input">
+                    <!-- Remove Image Button -->
+                    <button id="removeBtn" class="btn-remove hidden" title="Clear Canvas">✕</button>
+
+                    <!-- Initial Placeholder / Upload Area -->
+                    <div id="placeholderText" class="drop-content">
+                        <span class="upload-icon">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#64748b"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                        </span>
+                        <h2>Drag and drop an image here</h2>
+                        <p>or <span class="browse-link">click to browse files</span></p>
+                        <input type="file" id="upload" accept="image/png, image/jpeg, image/webp, image/svg+xml"
+                            class="hidden-file-input">
+                    </div>
+
+                    <canvas id="canvas" class="hidden"></canvas>
                 </div>
 
-                <canvas id="canvas" class="hidden"></canvas>
-            </div>
-            
-            <div id="imgDetails" class="hidden">
-                <span class="badge">Original File: <span id="origSize">0</span></span>
-                <span class="badge badge-primary">Optimized File: <span id="newSize">0</span></span>
+                <div id="imgDetails" class="hidden">
+                    <span class="badge">Original File: <span id="origSize">0</span></span>
+                    <span class="badge badge-primary">Optimized File: <span id="newSize">0</span></span>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
